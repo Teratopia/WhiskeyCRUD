@@ -7,9 +7,24 @@
 <title>Home - Whiskey</title>
 </head>
 <body>
- 	<form action="route.do" method="GET">
-      <input type="text" name="data" /><br />
-      <input type="submit" value="Submit" /><br />
-    </form>
+<fieldset>
+<h1>Faighusquebaugh!</h1>
+<h5>Your Online Whiskey Finder</h5>
+
+<p> Faighusquebaugh, from the Gaelic "faigh uisge beatha," means "find the water of life." That's exactly
+	what this site does: you select what whiskey you like, we'll show you where to find it. And for those
+	glencairn connoisseurs, champions of the quaich, moon-shiners, blenders, bartenders and fanatics we 
+	welcome you to add your favorite fire-water to the collection. Slainte, kanpai, and cheers.
+</p>
+	<table><tr>
+ 	<td><form action="browse.do" method="GET">
+      <input type="submit" value="Browse Whiskeys" /><br />
+    </form></td>
+ 	<td><form action="add.do" method="GET">
+      <input type="submit" value="Add Whiskey" /><br />
+    </form></td>
+	</tr>
+	</tr></table>
+</fieldset>
 </body>
 </html>
