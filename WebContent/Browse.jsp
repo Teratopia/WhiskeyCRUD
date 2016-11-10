@@ -8,11 +8,11 @@
 <title>Browse - Whiskey</title>
 </head>
 <body>
-
 	<fieldset>
-		<form action="sortDrams.do" method="GET">
 			<h3>Browse</h3>
-			<h6>
+			<h5>
+		<a href="index.jsp"><button>Home</button></a>
+		<form action="sortDrams.do" method="GET">
 				Browse by: <select name="select">
 					<option value="name">Name</option>
 					<option value="body">Body</option>
@@ -27,11 +27,11 @@
 					<option value="malt">Malty</option>
 					<option value="fruit">Fruity</option>
 					<option value="flor">Floral</option>
-				</select> <input type="submit" value="Sort" /><br />
-			</h6>
+				</select> <input type="submit" value="Sort" />
 		</form>
+			</h5>
 		<table>
-				<tr>
+			<tr>
 				<th>Name</th>
 				<th>Body</th>
 				<th>Sweetness</th>
@@ -43,11 +43,11 @@
 				<th>Winey</th>
 				<th>Nutty</th>
 				<th>Malty</th>
-				<th>Fruit</th>
+				<th>Fruity</th>
 				<th>Floral</th>
-				</tr>
-				<tr>
-			<c:forEach var="dram" items="${sortedDrams}">
+			</tr>
+			<tr>
+				<c:forEach var="dram" items="${sortedDrams}">
 					<td>${dram.name}</td>
 					<td>${dram.body}</td>
 					<td>${dram.sweet}</td>
@@ -61,11 +61,9 @@
 					<td>${dram.malt}</td>
 					<td>${dram.fruit}</td>
 					<td>${dram.flor}</td>
-				</tr>
+			</tr>
 			</c:forEach>
 		</table>
-
-
 	</fieldset>
 
 </body>

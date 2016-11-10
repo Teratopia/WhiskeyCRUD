@@ -27,8 +27,8 @@ public class WhiskeyDAOImpl implements WhiskeyDAO {
 
 	@PostConstruct
 	public void init() {
-		whiskeys = new ArrayList<>();
-
+		
+		if(whiskeys.size() == 0){
 		try (InputStream is = wac.getServletContext().getResourceAsStream(FILE_NAME);
 				BufferedReader br = new BufferedReader(new InputStreamReader(is));) {
 			String line = br.readLine();
@@ -56,6 +56,7 @@ public class WhiskeyDAOImpl implements WhiskeyDAO {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		}
 
 	}
 
@@ -65,10 +66,12 @@ public class WhiskeyDAOImpl implements WhiskeyDAO {
 		return whiskeys;
 	}
 
+	@Override
 	public List<Dram> getWhiskeys() {
 		return whiskeys;
 	}
 
+	@Override
 	public void setWhiskeys(List<Dram> whiskeys) {
 		this.whiskeys = whiskeys;
 	}
