@@ -48,7 +48,14 @@ public class WhiskeyDAOImpl implements WhiskeyDAO {
 			String fruit = tokens[12];
 			String flor = tokens[13];
 			String lat = tokens[15];
+			double latDub = Double.parseDouble(lat);
+			latDub = latDub/10000.0;
+			lat = ""+latDub;
 			String longi = tokens[16];
+			double longiDub = Double.parseDouble(lat);
+			longiDub = longiDub/10000.0;
+			longi = ""+longiDub;
+			
 			
 			whiskeys.add(new Dram(name,body,sweet,smoke,medic,tobac,honey,spice,wine,nut,malt,fruit,flor,lat,longi));
 			}

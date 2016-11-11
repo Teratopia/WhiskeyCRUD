@@ -1,15 +1,16 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.Dram;
@@ -42,9 +43,9 @@ public class WhiskeyController {
 		System.out.println("1: in newDram");
 		List<Dram> whiskeys = whiskeyDao.getWhiskeys();
 		whiskeys.add(dram);
-		System.out.println("2:" + whiskeys.get(whiskeys.size() - 1));
+		System.out.println("2: " + whiskeys.get(whiskeys.size() - 1));
 		whiskeyDao.setWhiskeys(whiskeys);
-		System.out.println("3:" + dram.toString());
+		System.out.println("3: " + dram.toString());
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("index.jsp");
 
@@ -162,4 +163,23 @@ public class WhiskeyController {
 		return mv;
 
 	}
+
+	@RequestMapping(path = "Location.do", params = "dramName", method = RequestMethod.GET)
+	public ModelAndView locateDist(@RequestParam("dramName") String name){
+		Dram dram = new Dram();
+		for (Dram dram1 : whiskeyDao.getWhiskeys()){
+			
+			if(dram1.getName().equals(name)){
+				dram = dram1;
+			}
+			
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("Location.jsp");
+		mv.addObject("dram", dram);
+		
+		return mv;
+	}
+
 }

@@ -48,7 +48,11 @@
 			</tr>
 			<tr>
 				<c:forEach var="dram" items="${sortedDrams}">
-					<td>${dram.name}</td>
+					<td>
+					<form action = "Location.do" method = "GET">
+					<input type = "submit" value ="${dram.name}" name = "dramName">
+					</form>
+					</td>
 					<td>${dram.body}</td>
 					<td>${dram.sweet}</td>
 					<td>${dram.smoke}</td>
