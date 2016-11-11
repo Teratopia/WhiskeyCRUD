@@ -79,8 +79,8 @@ public class Contact {
 
 	@Override
 	public String toString() {
-		return "Contact [name=" + name + ", address=" + address + ", city=" + city + ", state=" + state + ", country="
-				+ country + ", zip=" + zip + ", phone=" + phone + ", url=" + url + ", gMapUrl=" + "]";
+		return name + "," + address + "," + city + "," + state + ","
+				+ country + "," + zip + "," + phone + "," + url;
 	}
 	
 	

@@ -110,9 +110,10 @@
 		</select></td></tr>
 		<!-- if time, replace with address -->
 		<tr><td><input type = "submit" value = "Add Whiskey"></td>
-		<td><a href="index.jsp"><button>Back</button></a></td></tr>
+		</tr>
 	</table>
 </form>
+<a href="index.jsp"><button>Back</button></a>
 </fieldset>
 </body>
 </html> 

@@ -11,7 +11,7 @@
 	<fieldset>
 		<h3>Browse</h3>
 		<h5>
-			<a href="index.jsp"><button>Home</button></a>
+			<a href="index.jsp"><button>Back</button></a>
 			<form action="sortDrams.do" method="GET">
 				Sort by: <select name="select">
 					<option value="name">Name</option>
@@ -47,6 +47,8 @@
 			</form>
 		</h5>
 		<table>
+		<c:choose>
+			<c:when test="${sortedDrams.size()!=null}">
 			<tr>
 				<th>Name</th>
 				<th>Body</th>
@@ -63,8 +65,13 @@
 				<th>Floral</th>
 				<th>Taste Score</th>
 			</tr>
-				<c:forEach var="dram" items="${sortedDrams}">
-			<tr>
+				</c:when>
+				<c:otherwise>
+				
+				</c:otherwise>
+				</c:choose>
+			<c:forEach var="dram" items="${sortedDrams}" varStatus="loop">
+				<tr>
 					<td>
 						<form action="Location.do" method="GET">
 							<input type="submit" value="${dram.name}" name="dramName">
@@ -82,9 +89,9 @@
 					<td>${dram.malt}</td>
 					<td>${dram.fruit}</td>
 					<td>${dram.flor}</td>
-
-			</tr>
-				</c:forEach>
+					<td>${tasteDrams.get(loop.index)}</td>
+				</tr>
+			</c:forEach>
 		</table>
 	</fieldset>
 

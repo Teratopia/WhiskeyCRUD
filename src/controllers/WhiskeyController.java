@@ -35,6 +35,14 @@ public class WhiskeyController {
 		return mv;
 	}
 
+	@RequestMapping(path = "add.do", method = RequestMethod.GET)
+	public ModelAndView add(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("Add.jsp");
+
+		return mv;
+	}
+	
 	@RequestMapping(path = "newDram.do", method = RequestMethod.POST)
 	public ModelAndView newDram(Dram dram) {
 		List<Dram> whiskeys = whiskeyDao.getWhiskeys();
@@ -49,8 +57,6 @@ public class WhiskeyController {
 
 	@RequestMapping(path = "sortDrams.do", params = "select", method = RequestMethod.GET)
 	public ModelAndView sortDrams(@RequestParam("select") String select) {
-
-		
 		
 		List<Dram> drams = whiskeyDao.getDrams();
 		TreeMap<String, String> holders = new TreeMap<>();
@@ -164,28 +170,35 @@ public class WhiskeyController {
 				dram = dram1;
 			}
 		}
+		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("Location.jsp");
-		mv.addObject("dram", dram);
+		
+		for(Contact contact : whiskeyDao.getContacts()){
+			if(contact.getName().equals(name)){
+				mv = addContact(contact);
+				break;
+			}else{
+				mv.setViewName("Location.jsp");
+				mv.addObject("dram", dram);
+			}
+		}
 		
 		return mv;
 	}
-	
+		
+
 	@RequestMapping(path = "addContact.do", method = RequestMethod.GET)
 	public ModelAndView addContact(Contact contact){
 		System.out.println(contact.toString());
 		try {
             FileWriter fw = new FileWriter("/Users/Jolteon/Desktop/WhiskeyContacts/WhiskeyContacts.csv");
             PrintWriter pw = new PrintWriter(fw);
+            
+            for (Contact contact2 : whiskeyDao.getContacts()) {
+				pw.println(contact2);
+			}
 
-            pw.print(contact.getName()+",");
-            pw.print(contact.getAddress()+",");
-            pw.print(contact.getCity()+",");
-            pw.print(contact.getState()+",");
-            pw.print(contact.getCountry()+",");
-            pw.print(contact.getZip()+",");
-            pw.print(contact.getPhone()+",");
-            pw.println(contact.getUrl());
+            pw.println(contact);
 
             pw.close();
         }
@@ -220,6 +233,7 @@ public class WhiskeyController {
 		
 		return mv;
 	}
+	
 	
 	public String makeGMapString(Contact contact){
 		
@@ -272,6 +286,7 @@ public class WhiskeyController {
 		return retString;
 	}
 
+	
 	@RequestMapping("tasteSort.do")
 	public ModelAndView tasteSort(@RequestParam("checks") String s){
 		List<Dram> drams = whiskeyDao.getWhiskeys();
@@ -344,9 +359,11 @@ public class WhiskeyController {
 		
 //			System.out.print("Ave: "+returnMap.firstKey());
 //			System.out.println(" Name: "+name);
+		List<String> unsortedTasteDrams = new ArrayList<>();
 		List<Dram> revSortedDrams = new ArrayList<>();
 		while (returnMap.size() != 0) {
 			String name = ((returnMap.get(returnMap.firstKey())));
+			unsortedTasteDrams.add(returnMap.firstKey());
 			returnMap.remove(returnMap.firstKey());
 			for (Dram dram : drams) {
 				if (dram.getName().equals(name)) {
@@ -362,10 +379,16 @@ public class WhiskeyController {
 			sortedDrams.add(revSortedDrams.get(index));
 		}
 		
+		List<String> tasteDrams = new ArrayList<>();
+		for (int k = unsortedTasteDrams.size()-1; k>-1; k--) {
+			tasteDrams.add(unsortedTasteDrams.get(k).substring(0, 3));
+		}
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Browse.jsp");
 		mv.addObject("sortedDrams", sortedDrams);
+		mv.addObject("tasteDrams", tasteDrams);
+		
 		return mv;
 	}
 

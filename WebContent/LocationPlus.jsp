@@ -8,6 +8,8 @@
 </head>
 <body>
 <h1>${dram.name}</h1>
+
+<a href="Browse.jsp"><button>Back to Browse</button></a><a href="index.jsp"><button>Back to Home</button></a>
 	<table>
 		<tr>
 			<td>

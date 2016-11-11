@@ -37,7 +37,7 @@
 				</td>
 		</tr>
 	</table>
-
+<h4>Add a Contact!</h4>
 <form action = "addContact.do" method = "GET">
 <input type="hidden" name="name" value = "${dram.name}">
 <input type="text" name="address" value = "Address">
