@@ -11,7 +11,7 @@
 	<!-- //RowID,Distillery,Body,Sweetness,Smoky,Medicinal,Tobacco,Honey,
 //Spicy,Winey,Nutty,Malty,Fruity,Floral,Postcode, Latitude, Longitude -->
 
-	<h1>${dram.name}</h1>
+	<h1 name="name" value = "${dram.name}">${dram.name}</h1>
 	<table>
 		<tr>
 			<td>
@@ -30,13 +30,24 @@
 					<li>Floral: ${dram.flor}</li>
 				</ul>
 			</td>
-			<td><iframe width="450" , height="280" , frameborder="0"
+			<td><iframe width="340" , height="210" , frameborder="0"
 					style="border: 0"
-					src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBai9RCT_s_yO9KpNpV650lnLk4PpH8JAE
-    				 &center=${dram.lat},${dram.longi}&zoom=14&maptype=satellite">
-				</iframe></td>
+					src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBai9RCT_s_yO9KpNpV650lnLk4PpH8JAE&&q=${dram.name},+UK&zoom=10">
+				</iframe>
+				</td>
 		</tr>
 	</table>
 
+<form action = "addContact.do" method = "GET">
+<input type="hidden" name="name" value = "${dram.name}">
+<input type="text" name="address" value = "Address">
+<input type="text" name="city" value = "City">
+<input type="text" name="state" value = "State"><br>
+<input type="text" name="country" value = "Country">
+<input type="text" name="zip" value = "Zip Code">
+<input type="text" name="phone" value = "Phone Number"><br>
+<input type="text" name="url" value = "Website URL">
+<input type="submit" value="Submit" />
+</form>
 </body>
 </html>

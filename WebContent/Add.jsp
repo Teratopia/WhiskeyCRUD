@@ -109,8 +109,6 @@
 				<option value="5">5</option>
 		</select></td></tr>
 		<!-- if time, replace with address -->
-		<tr><td>Distillery Latitude:</td><td><input name = "lat"></td></tr>
-		<tr><td>Distillery Longitude:</td><td><input name = "longi"></td></tr>
 		<tr><td><input type = "submit" value = "Add Whiskey"></td>
 		<td><a href="index.jsp"><button>Back</button></a></td></tr>
 	</table>

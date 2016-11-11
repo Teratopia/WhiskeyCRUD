@@ -1,18 +1,20 @@
 package controllers;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import data.Contact;
 import data.Dram;
 import data.WhiskeyDAO;
 
@@ -31,23 +33,14 @@ public class WhiskeyController {
 		return mv;
 	}
 
-	@RequestMapping("add.do")
-	public ModelAndView add() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("Add.jsp");
-		return mv;
-	}
-
 	@RequestMapping(path = "newDram.do", method = RequestMethod.POST)
 	public ModelAndView newDram(Dram dram) {
-		System.out.println("1: in newDram");
 		List<Dram> whiskeys = whiskeyDao.getWhiskeys();
 		whiskeys.add(dram);
-		System.out.println("2: " + whiskeys.get(whiskeys.size() - 1));
 		whiskeyDao.setWhiskeys(whiskeys);
-		System.out.println("3: " + dram.toString());
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("index.jsp");
+		mv.setViewName("Location.jsp");
+		mv.addObject("dramName", dram);
 
 		return mv;
 	}
@@ -168,18 +161,114 @@ public class WhiskeyController {
 	public ModelAndView locateDist(@RequestParam("dramName") String name){
 		Dram dram = new Dram();
 		for (Dram dram1 : whiskeyDao.getWhiskeys()){
-			
 			if(dram1.getName().equals(name)){
 				dram = dram1;
 			}
-			
 		}
-		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Location.jsp");
 		mv.addObject("dram", dram);
 		
 		return mv;
+	}
+	
+	@RequestMapping(path = "addContact.do", method = RequestMethod.GET)
+	public ModelAndView addContact(Contact contact){
+		System.out.println(contact.toString());
+		try {
+            FileWriter fw = new FileWriter("/Users/Jolteon/Desktop/WhiskeyContacts/WhiskeyContacts.csv");
+            PrintWriter pw = new PrintWriter(fw);
+
+            pw.print(contact.getName()+",");
+            pw.print(contact.getAddress()+",");
+            pw.print(contact.getCity()+",");
+            pw.print(contact.getState()+",");
+            pw.print(contact.getCountry()+",");
+            pw.print(contact.getZip()+",");
+            pw.print(contact.getPhone()+",");
+            pw.println(contact.getUrl());
+
+            pw.close();
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+		Dram dram = new Dram();
+		
+		for(Dram dram1 : whiskeyDao.getDrams()){
+			
+			if(dram1.getName().equals(contact.getName())){
+				dram = dram1;
+			}
+			
+		}
+		
+		String gUrl = makeGMapString(contact);
+		
+		System.out.println("Dram: "+dram);
+		System.out.println(contact);
+		System.out.println("gmap Link: "+gUrl);
+		
+		List<Contact> contacts = whiskeyDao.getContacts();
+		contacts.add(contact);
+		whiskeyDao.setContacts(contacts);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("LocationPlus.jsp");
+		mv.addObject("contact", contact);
+		mv.addObject("dram", dram);
+		mv.addObject("gUrl", gUrl);
+		
+		return mv;
+	}
+	
+	public String makeGMapString(Contact contact){
+		
+		
+//		https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY
+//			  &q=Fairmont+Empress,Victoria+BC
+//			  &attribution_source=Google+Maps+Embed+API
+//			  &attribution_web_url=http://www.fairmont.com/empress-victoria/
+//			  &attribution_ios_deep_link_id=comgooglemaps://?daddr=Fairmont+Empress,+Victoria,+BC
+		
+//		https://www.google.com/maps?q=1200+Pennsylvania+Ave+SE,+Washington,+District+of+Columbia,+20003
+		
+		String base = "https://www.google.com/maps/embed/v1/place?key=AIzaSyBai9RCT_s_yO9KpNpV650lnLk4PpH8JAE&&q=";
+		String end = "&zoom=10";
+		String retString = "";	
+		boolean testUrl = (contact.getUrl()!=null && !contact.getUrl().equals("Website URL"));
+		boolean testAdd = (contact.getAddress()!=null && !contact.getAddress().equals("Address"));
+		boolean testCity = (contact.getCity()!=null && !contact.getCity().equals("City"));
+		boolean testState = (contact.getState()!=null && !contact.getState().equals("State"));
+		boolean testCountry = (contact.getCountry()!=null && !contact.getCountry().equals("Country"));
+		String add = contact.getAddress().replaceAll(" ", "+");
+		String city = contact.getCity().replaceAll(" ", "+");
+		String state = contact.getState().replaceAll(" ", "+");
+		String country = contact.getCountry().replaceAll(" ", "+");
+		String name = contact.getName().replaceAll(" ", "+");
+		
+		if(testUrl && testCountry && testState && testCity && testAdd){
+			String address = add+","+city+","+state+","+country;
+			
+			retString = base+address+"&attribution_source=Google+Maps+Embed+API&attribution_web_url="+
+					contact.getUrl()+"&attribution_ios_deep_link_id=comgooglemaps://?daddr="+address+end;
+			
+		}else if(testCountry && testState && testCity && testAdd){
+			
+			retString = base+add+","+city+","+state+","+country+end;
+			
+		}else if(testCountry && testCity && testAdd){
+			
+			retString = base+add+","+city+","+country+end;
+			
+		}else if(testCountry && testCity){
+			
+			retString = base+","+city+","+country+end;
+		}else{
+			retString = "https://www.google.com/maps/embed/v1/place?key=AIzaSyBai9RCT_s_yO9KpNpV650lnLk4PpH8JAE&&q=$"+name+",+UK&zoom=10";
+		}
+		
+		return retString;
 	}
 
 }

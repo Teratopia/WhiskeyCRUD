@@ -18,13 +18,11 @@ public class Dram {
 	private String malt;
 	private String fruit;
 	private String flor;
-	private String lat;
-	private String longi;
 	
 	public Dram(){}
 	
 	public Dram(String name, String body, String sweet, String smoke, String medic, String tobac, String honey,
-			String spice, String wine, String nut, String malt, String fruit, String flor, String lat, String longi) {
+			String spice, String wine, String nut, String malt, String fruit, String flor) {
 		super();
 		this.name = name;
 		this.body = body;
@@ -39,8 +37,6 @@ public class Dram {
 		this.malt = malt;
 		this.fruit = fruit;
 		this.flor = flor;
-		this.lat = lat;
-		this.longi = longi;
 	}
 	public String getName() {
 		return name;
@@ -120,23 +116,12 @@ public class Dram {
 	public void setFlor(String flor) {
 		this.flor = flor;
 	}
-	public String getLat() {
-		return lat;
-	}
-	public void setLat(String lat) {
-		this.lat = lat;
-	}
-	public String getLongi() {
-		return longi;
-	}
-	public void setLongi(String longi) {
-		this.longi = longi;
-	}
+	
 	@Override
 	public String toString() {
 		return "New," + name + "," + body + "," + sweet + "," + smoke + "," + medic
 				+ "," + tobac + "," + honey + "," + spice + "," + wine + "," + nut
-				+ "," + malt + "," + fruit + "," + flor + ",NULL," + lat + "," + longi;
+				+ "," + malt + "," + fruit + "," + flor;
 	}
 	
 	
