@@ -4,7 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +50,8 @@ public class WhiskeyController {
 	@RequestMapping(path = "sortDrams.do", params = "select", method = RequestMethod.GET)
 	public ModelAndView sortDrams(@RequestParam("select") String select) {
 
-		System.out.println("in sortDram");
-
+		
+		
 		List<Dram> drams = whiskeyDao.getDrams();
 		TreeMap<String, String> holders = new TreeMap<>();
 		List<Dram> revSortedDrams = new ArrayList<>();
@@ -127,7 +129,6 @@ public class WhiskeyController {
 		// RowID,Distillery,Body,Sweetness,Smoky,Medicinal,Tobacco,Honey,
 		// Spicy,Winey,Nutty,Malty,Fruity,Floral,Postcode, Latitude, Longitude
 
-		int count = 1;
 		while (holders.size() != 0) {
 			String name = ((holders.get(holders.firstKey())));
 			holders.remove(holders.firstKey());
@@ -137,9 +138,7 @@ public class WhiskeyController {
 					break;
 				}
 			}
-			count++;
 		}
-		System.out.println(count);
 
 		if (!select.equals("name")) {
 			for (int index = revSortedDrams.size() - 1; index > 0; index--) {
@@ -265,10 +264,109 @@ public class WhiskeyController {
 			
 			retString = base+","+city+","+country+end;
 		}else{
+			
 			retString = "https://www.google.com/maps/embed/v1/place?key=AIzaSyBai9RCT_s_yO9KpNpV650lnLk4PpH8JAE&&q=$"+name+",+UK&zoom=10";
+		
 		}
 		
 		return retString;
+	}
+
+	@RequestMapping("tasteSort.do")
+	public ModelAndView tasteSort(@RequestParam("checks") String s){
+		List<Dram> drams = whiskeyDao.getWhiskeys();
+		TreeMap<String,String> returnMap = new TreeMap<>(); 
+		String[] tokens = s.split(",");
+		int modifier = 0;
+		for (Dram dram : drams) {
+			String name = dram.getName();
+			int sum = 0;
+			int count = 0;
+			
+			for (String string : tokens) {
+				switch(string){
+				case("body"):
+					sum+=Integer.parseInt(dram.getBody());
+					count++;
+				break;	
+				case("sweet"):
+					sum+=Integer.parseInt(dram.getSweet());
+				count++;
+				break;	
+				case("smoke"):
+					sum+=Integer.parseInt(dram.getSmoke());
+				count++;
+				break;	
+				case("medic"):
+					sum+=Integer.parseInt(dram.getMedic());
+				count++;
+				break;	
+				case("tobac"):
+					sum+=Integer.parseInt(dram.getTobac());
+				count++;
+				break;	
+				case("honey"):
+					sum+=Integer.parseInt(dram.getHoney());
+				count++;
+				break;	
+				case("spice"):
+					sum+=Integer.parseInt(dram.getSpice());
+				count++;
+				break;	
+				case("wine"):
+					sum+=Integer.parseInt(dram.getWine());
+				count++;
+				break;	
+				case("nut"):
+					sum+=Integer.parseInt(dram.getNut());
+				count++;
+				break;	
+				case("malt"):
+					sum+=Integer.parseInt(dram.getMalt());
+				count++;
+				break;	
+				case("fruit"):
+					sum+=Integer.parseInt(dram.getFruit());
+				count++;
+				break;	
+				case("flor"):
+					sum+=Integer.parseInt(dram.getFlor());
+				count++;
+				break;	
+				}
+			}
+			
+			double average = ((double)(sum)/(double)(count));
+			String aveString = ""+average+modifier++;
+			returnMap.put(aveString, name);
+			//System.out.println(name+" : "+aveString);
+		}
+		
+//			System.out.print("Ave: "+returnMap.firstKey());
+//			System.out.println(" Name: "+name);
+		List<Dram> revSortedDrams = new ArrayList<>();
+		while (returnMap.size() != 0) {
+			String name = ((returnMap.get(returnMap.firstKey())));
+			returnMap.remove(returnMap.firstKey());
+			for (Dram dram : drams) {
+				if (dram.getName().equals(name)) {
+					revSortedDrams.add(dram);
+					//System.out.println(dram.toString());
+					break;
+				}
+			}
+		}
+		
+		List<Dram> sortedDrams = new ArrayList<>();
+		for (int index = revSortedDrams.size() - 1; index > 0; index--) {
+			sortedDrams.add(revSortedDrams.get(index));
+		}
+		
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("Browse.jsp");
+		mv.addObject("sortedDrams", sortedDrams);
+		return mv;
 	}
 
 }

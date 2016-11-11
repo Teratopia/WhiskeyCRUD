@@ -9,11 +9,11 @@
 </head>
 <body>
 	<fieldset>
-			<h3>Browse</h3>
-			<h5>
-		<a href="index.jsp"><button>Home</button></a>
-		<form action="sortDrams.do" method="GET">
-				Browse by: <select name="select">
+		<h3>Browse</h3>
+		<h5>
+			<a href="index.jsp"><button>Home</button></a>
+			<form action="sortDrams.do" method="GET">
+				Sort by: <select name="select">
 					<option value="name">Name</option>
 					<option value="body">Body</option>
 					<option value="sweet">Sweetness</option>
@@ -28,8 +28,24 @@
 					<option value="fruit">Fruity</option>
 					<option value="flor">Floral</option>
 				</select> <input type="submit" value="Sort" />
-		</form>
-			</h5>
+			</form>
+			<form action="tasteSort.do" method="GET">
+				Body:<input type="checkbox" name="checks" value="body">
+				Sweetness:<input type="checkbox" name="checks" value="sweet">
+				Smokiness:<input type="checkbox" name="checks" value="smoke">
+				Medicinal:<input type="checkbox" name="checks" value="medic">
+				Tobacco:<input type="checkbox" name="checks" value="tobac">
+				Honey:<input type="checkbox" name="checks" value="honey">
+				Spicey:<input type="checkbox" name="checks" value="spice">
+				Winey:<input type="checkbox" name="checks" value="wine">
+				Nutty:<input type="checkbox" name="checks" value="nut">
+				Malty:<input type="checkbox" name="checks" value="malt">
+				Fruity:<input type="checkbox" name="checks" value="fruit">
+				Floral:<input type="checkbox" name="checks" value="flor"> </select> <input
+					type="submit" value="Browse by Taste" />
+
+			</form>
+		</h5>
 		<table>
 			<tr>
 				<th>Name</th>
@@ -45,13 +61,14 @@
 				<th>Malty</th>
 				<th>Fruity</th>
 				<th>Floral</th>
+				<th>Taste Score</th>
 			</tr>
-			<tr>
 				<c:forEach var="dram" items="${sortedDrams}">
+			<tr>
 					<td>
-					<form action = "Location.do" method = "GET">
-					<input type = "submit" value ="${dram.name}" name = "dramName">
-					</form>
+						<form action="Location.do" method="GET">
+							<input type="submit" value="${dram.name}" name="dramName">
+						</form>
 					</td>
 					<td>${dram.body}</td>
 					<td>${dram.sweet}</td>
@@ -65,8 +82,9 @@
 					<td>${dram.malt}</td>
 					<td>${dram.fruit}</td>
 					<td>${dram.flor}</td>
+
 			</tr>
-			</c:forEach>
+				</c:forEach>
 		</table>
 	</fieldset>
 
