@@ -1,0 +1,31 @@
+body{
+	
+	background-image: url("http://www.americanwhiskeytrail.com/sites/default/files/styles/flexslider_full/public/page/field_image/american-whiskey-history.jpg?itok=K5sGlyEO");
+	background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    background-width: 100%;
+    background-attachment: fixed;
+    background-color: black;
+    
+}
+
+fieldset{
+	
+	background: rgba(0, 0, 0, .8);
+	color: white;
+	width: 60%;
+	
+}
+
+table{
+	margin-left: 0cm;
+}
+
+ul{
+	
+text-align: left;
+list-style: none;
+display: inline;
+	
+}

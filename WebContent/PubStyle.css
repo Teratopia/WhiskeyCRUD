@@ -1,0 +1,45 @@
+body{
+	
+	background-image: url("https://herecomesdublin.files.wordpress.com/2013/02/dsc_0829.jpg");
+	background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    background-width: 100%;
+    background-attachment: fixed;
+    background-color: black;
+    
+}
+
+fieldset{
+	
+	margin-left: auto;
+	margin-right: auto;
+	background: rgba(0, 0, 0, .8);
+	color: white;
+	text-align: center;
+	width: 60%;
+	
+}
+
+iframe{
+	
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+table{
+	
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+ul{
+	
+
+text-align: center;
+list-style: none;
+display: inline;
+	
+}

@@ -3,15 +3,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="PubStyle.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add - Whiskey</title>
 </head>
 <body>
 <fieldset>
-<h3>Add a Whiskey:</h3>
+<h2><em>Add a Whiskey</em></h2>
+<a href="index.jsp"><button>Back to Home</button></a>
+<a href="Browse.jsp"><button>Back to Browse</button></a>
+
 <form action = "newDram.do" method = "POST">
+		Name:<input name = "name">
 	<table>
-		<tr><td>Name:</td><td><input name = "name"></td></tr>
 		<tr><td>Body:</td><td><select name="body">
 				<option value="0">0</option>
 				<option value="1">1</option>
@@ -60,7 +64,7 @@
 				<option value="4">4</option>
 				<option value="5">5</option>
 		</select></td></tr>
-		<tr><td>Spicey:</td><td><select name="spice">
+		<tr><td>Spicy:</td><td><select name="spice">
 				<option value="0">0</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -109,11 +113,9 @@
 				<option value="5">5</option>
 		</select></td></tr>
 		<!-- if time, replace with address -->
-		<tr><td><input type = "submit" value = "Add Whiskey"></td>
-		</tr>
 	</table>
+		<input type = "submit" value = "Add Whiskey">
 </form>
-<a href="index.jsp"><button>Back</button></a>
 </fieldset>
 </body>
 </html> 

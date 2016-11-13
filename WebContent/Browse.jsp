@@ -5,15 +5,34 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="PubStyle.css">
 <title>Browse - Whiskey</title>
 </head>
 <body>
 	<fieldset>
-		<h3>Browse</h3>
+		<h1>Browse</h1>
 		<h5>
-			<a href="index.jsp"><button>Back</button></a>
+			<a href="index.jsp"><button>Back to Home</button></a><a href="Add.jsp"><button>Add Whiskey</button></a>
+			<form action="tasteSort.do" method="GET">
+			
+				<input type="submit" value="Browse by Taste" />
+				<input type="checkbox" name="checks" value="body">Body
+				<input type="checkbox" name="checks" value="sweet">Sweetness
+				<input type="checkbox" name="checks" value="smoke">Smokiness
+				<input type="checkbox" name="checks" value="medic">Medicinal
+				<input type="checkbox" name="checks" value="tobac">Tobacco
+				<input type="checkbox" name="checks" value="honey">Honey
+				<input type="checkbox" name="checks" value="spice">Spicy
+				<input type="checkbox" name="checks" value="wine">Winey
+				<input type="checkbox" name="checks" value="nut">Nutty
+				<input type="checkbox" name="checks" value="malt">Malty
+				<input type="checkbox" name="checks" value="fruit">Fruity
+				<input type="checkbox" name="checks" value="flor">Floral </select> 
+
+			</form>
 			<form action="sortDrams.do" method="GET">
-				Sort by: <select name="select">
+				<input type="submit" value="Sort by:" />
+				<select name="select">
 					<option value="name">Name</option>
 					<option value="body">Body</option>
 					<option value="sweet">Sweetness</option>
@@ -27,23 +46,7 @@
 					<option value="malt">Malty</option>
 					<option value="fruit">Fruity</option>
 					<option value="flor">Floral</option>
-				</select> <input type="submit" value="Sort" />
-			</form>
-			<form action="tasteSort.do" method="GET">
-				Body:<input type="checkbox" name="checks" value="body">
-				Sweetness:<input type="checkbox" name="checks" value="sweet">
-				Smokiness:<input type="checkbox" name="checks" value="smoke">
-				Medicinal:<input type="checkbox" name="checks" value="medic">
-				Tobacco:<input type="checkbox" name="checks" value="tobac">
-				Honey:<input type="checkbox" name="checks" value="honey">
-				Spicey:<input type="checkbox" name="checks" value="spice">
-				Winey:<input type="checkbox" name="checks" value="wine">
-				Nutty:<input type="checkbox" name="checks" value="nut">
-				Malty:<input type="checkbox" name="checks" value="malt">
-				Fruity:<input type="checkbox" name="checks" value="fruit">
-				Floral:<input type="checkbox" name="checks" value="flor"> </select> <input
-					type="submit" value="Browse by Taste" />
-
+				</select> 
 			</form>
 		</h5>
 		<table>

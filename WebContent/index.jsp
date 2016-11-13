@@ -3,12 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="PubStyle.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Home - Whiskey</title>
 </head>
 <body>
 <fieldset>
-<h1>Faighusquebaugh!</h1>
+<h1><em>Faighusquebaugh!</em></h1>
 <h5>Your Online Whiskey Finder</h5>
 
 <p> Faighusquebaugh, from the Gaelic "faigh uisge beatha," means "find water of life." That's exactly
