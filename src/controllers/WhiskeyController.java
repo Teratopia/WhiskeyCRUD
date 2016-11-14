@@ -4,13 +4,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +41,7 @@ public class WhiskeyController {
 
 		return mv;
 	}
-	
+
 	@RequestMapping(path = "newDram.do", method = RequestMethod.POST)
 	public ModelAndView newDram(Dram dram) {
 		List<Dram> whiskeys = whiskeyDao.getWhiskeys();
@@ -50,7 +49,7 @@ public class WhiskeyController {
 		whiskeyDao.setWhiskeys(whiskeys);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Location.jsp");
-		mv.addObject("dramName", dram);
+		mv.addObject("dram", dram);
 
 		return mv;
 	}
@@ -189,6 +188,7 @@ public class WhiskeyController {
 
 	@RequestMapping(path = "addContact.do", method = RequestMethod.GET)
 	public ModelAndView addContact(Contact contact){
+		
 		System.out.println(contact.toString());
 		try {
             FileWriter fw = new FileWriter("/Users/Jolteon/Desktop/WhiskeyContacts/WhiskeyContacts.csv");
@@ -390,6 +390,35 @@ public class WhiskeyController {
 		mv.addObject("tasteDrams", tasteDrams);
 		
 		return mv;
+	}
+
+	@RequestMapping(path = "update.do", method = RequestMethod.GET)
+	public ModelAndView updateDram(@RequestParam("name2") String s){
+		removeDram(s);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("Add.jsp");
+		mv.addObject("updateName", s);		
+		
+		return mv;
+	}
+	
+	@RequestMapping(path = "delete.do", method = RequestMethod.GET)
+	public ModelAndView deleteDram(@RequestParam("name2") String s){
+		ModelAndView mv = new ModelAndView();
+		removeDram(s);
+		mv.setViewName("Browse.jsp");
+		return mv;
+	}
+	
+	public void removeDram(String s){
+		List<Dram> whiskeys = whiskeyDao.getWhiskeys();
+		for (Dram dram2 : whiskeys) {
+			if(dram2.getName().equals(s)){
+				whiskeys.remove(dram2);
+				break;
+			}
+		}
+		whiskeyDao.setWhiskeys(whiskeys);
 	}
 
 }

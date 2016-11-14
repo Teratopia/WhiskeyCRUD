@@ -1,10 +1,13 @@
 package data;
 
+import javax.validation.constraints.Size;
+
 //RowID,Distillery,Body,Sweetness,Smoky,Medicinal,Tobacco,Honey,
 //Spicy,Winey,Nutty,Malty,Fruity,Floral,Postcode, Latitude, Longitude
 
 public class Dram {
 	
+	@Size(min=2, max=100)
 	private String name;
 	private String body;
 	private String sweet;

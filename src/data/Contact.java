@@ -1,14 +1,29 @@
 package data;
 
+import javax.validation.constraints.Size;
+
 public class Contact {
 	
+	@Size(min=2, max=100)
 	private String name;
+	
+	@Size(min=2, max=200)
 	private String address;
+	
+	@Size(min=2, max=100)
 	private String city;
+	
+	@Size(min=2, max=100)
 	private String state;
 	private String country;
+	
+	@Size(min=2, max=100)
 	private String zip;
+	
+	@Size(min=2, max=100)
 	private String phone;
+	
+	@Size(min=7, max=16)
 	private String url;
 	
 	public Contact(){}

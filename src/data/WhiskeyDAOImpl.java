@@ -15,7 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 public class WhiskeyDAOImpl implements WhiskeyDAO {
 	private static final String FILE_NAME = "/WEB-INF/whiskey.csv";
-	private static final String FILE_NAME2 = "/Users/Jolteon/Desktop/WhiskeyContacts/WhiskeyContacts.csv";
+	private static final String FILE_NAME2 = "/Users/Jolteon/SD/Java/workspace/WhiskeyCRUD/WebContent/WEB-INF/WhiskeyContacts.csv";
 	private List<Dram> whiskeys = new ArrayList<>();
 	private List<Contact> contacts = new ArrayList<>();
 
