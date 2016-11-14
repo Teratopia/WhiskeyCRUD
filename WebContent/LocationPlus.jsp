@@ -11,8 +11,21 @@
 	<fieldset>
 		<h1><em>${dram.name}</em></h1>
 
-		<a href="Browse.jsp"><button>Back to Browse</button></a> <a
-			href="index.jsp"><button>Back to Home</button></a>
+		<table><tr>
+<td>
+		<a href="Browse.jsp"><button>Back to Browse</button></a>
+</td><td>
+		<a href="index.jsp"><button>Back to Home</button></a>
+</td><td>
+		<form action="update.do" method="GET"><input type="hidden" name="name2" value="${dram.name}">
+		<input type="submit" value="Update Whiskey"/>
+		</form>
+</td><td>
+		<form action="delete.do" method="GET"><input type="hidden" name="name2" value="${dram.name}">
+		<input type="submit" value="Delete Whiskey"/></form>
+</td>
+</tr></table>
+
 		<table>
 			<tr>
 				<td>
